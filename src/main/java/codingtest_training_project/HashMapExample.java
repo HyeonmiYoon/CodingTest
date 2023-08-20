@@ -2,7 +2,6 @@ package codingtest_training_project;
 import java.util.*;
 
 public class HashMapExample {
-
 	public static void main(String[] args) {
 		
 		 /* 수많은 마라톤 선수들이 마라톤에 참여하였습니다. 단 한 명의 선수를 제외하고는 모든 선수가 마라톤을 완주하였습니다.
@@ -36,33 +35,33 @@ public class HashMapExample {
 		Solution solution = new Solution();
 		System.out.println(solution.solution(participant, completion));
 	}
+	
+	static class Solution {
+		public String solution(String[] participant, String[] completion) {
+		    String answer = "";
+		    HashMap<String, Integer> hs = new HashMap<>(); //이름을 Key, index를 Value로 하는 HashMap 선언
+		    
+		    for(String name : participant) { //참가자만큼 반복하면서 hs에 값 세팅(이때, 참가자 이름을 Key로 하는 hashMap 이고, index는 1씩 증가시켜서 value에 담는다 
+		        hs.put(name, hs.getOrDefault(name, 0) + 1); 
+		    }
+		    
+		    for(String name : completion) {  //완주자만큼 반복하면서 hs에 값 세팅(이때, 참가자 이름을 Key로 하는 hashMap 이고, index는 1씩 감소시켜서 value에 담는다
+		        hs.put(name, hs.get(name) - 1);
+		    }
+		    
+		    Iterator<Map.Entry<String, Integer>> iter = hs.entrySet().iterator(); //hashMap Iterator 객체 생성
 
-}
-
-class Solution {
-	public String solution(String[] participant, String[] completion) {
-	    String answer = "";
-	    HashMap<String, Integer> hs = new HashMap<>(); //이름을 Key, index를 Value로 하는 HashMap 선언
-	    
-	    for(String name : participant) { //참가자만큼 반복하면서 hs에 값 세팅(이때, 참가자 이름을 Key로 하는 hashMap 이고, index는 1씩 증가시켜서 value에 담는다 
-	        hs.put(name, hs.getOrDefault(name, 0) + 1); 
-	    }
-	    
-	    for(String name : completion) {  //완주자만큼 반복하면서 hs에 값 세팅(이때, 참가자 이름을 Key로 하는 hashMap 이고, index는 1씩 감소시켜서 value에 담는다
-	        hs.put(name, hs.get(name) - 1);
-	    }
-	    
-	    Iterator<Map.Entry<String, Integer>> iter = hs.entrySet().iterator(); //hashMap Iterator 객체 생성
-
-	    while(iter.hasNext()){
-	        Map.Entry<String, Integer> entry = iter.next();
-	        if (entry.getValue() != 0){ //참가자에도 있고, 완주자에도 있는 경우 value를 1씩 감소시켜 0으로 만들었으므로 1이 아니면 완주자 목록에 없음
-	            answer = entry.getKey();
-	            break;
-	        }
-	    }
-	    
-	    return answer;
+		    while(iter.hasNext()){
+		        Map.Entry<String, Integer> entry = iter.next();
+		        if (entry.getValue() != 0){ //참가자에도 있고, 완주자에도 있는 경우 value를 1씩 감소시켜 0으로 만들었으므로 1이 아니면 완주자 목록에 없음
+		            answer = entry.getKey();
+		            break;
+		        }
+		    }
+		    
+		    return answer;
+		}
 	}
 }
+
 
